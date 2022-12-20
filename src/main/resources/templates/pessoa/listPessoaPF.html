@@ -1,0 +1,57 @@
+<div th:insert="fragments/header :: modelheader"></div>
+<div th:insert="fragments/navbar"></div>
+<div th:if="${pessoas.size() > 0}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Lista de Pessoas</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <form id="form" method="get" name="filtros" th:action="@{/pessoapf/listPessoa}">
+                    <label for="filtros_pessoas" class="col-sm-2 col-form-label">Pessoa</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="filtros_pessoas" name="filtros_pessoas" placeholder="Nome">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-success">Filtrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div th:if="${!#strings.isEmpty(sucesso)}">
+            <div class="alert alert-success" role="alert">
+                <span th:text="${sucesso}"></span>
+            </div>
+        </div>
+        <div class="row ">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${pessoas}">
+                        <th scope="row" th:text="${p.id}" ></th>
+                        <td th:text="${p.nome}"></td>
+                        <td th:text="${p.cpf}"></td>
+                        <td> <a th:href="@{/pessoapf/editPessoa/{id}(id=${p.id})}" class="btn btn-outline-secondary">Editar</a> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container" th:if="${pessoas.size() == 0}">
+    <br>
+    <div class="alert alert-info">Lista de Pessoas vazia!</div>
+</div>
+<div th:insert="fragments/footer :: modelfooter"></div>

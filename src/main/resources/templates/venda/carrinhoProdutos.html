@@ -1,0 +1,67 @@
+<div th:insert="fragments/header :: modelheader"></div>
+<div th:insert="fragments/navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Carrinho de Compras</h2>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div th:if="${!#strings.isEmpty(sucesso)}">
+        <div class="alert alert-success" role="alert">
+            <span th:text="${sucesso}"></span>
+        </div>
+    </div>
+    <div th:if="${!#strings.isEmpty(erro)}">
+        <div class="alert alert-danger" role="alert">
+            <span th:text="${erro}"></span>
+        </div>
+    </div>
+    <div class="row gap-2">
+        <div class="col-12 rounded d-grid gap-2" style="background-color: #F2EEF4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="i : ${session.venda.getItemVendas}">
+                        <th th:text="${i.produto.id}" scope="row"></th>
+                        <td th:text="${i.produto.descricao}"></td>
+                        <td><span th:text="${i.qtd}" class="badge bg-primary rounded-pill"></span></td>
+                        <td th:text="${#numbers.formatCurrency(i.valor)}"></td>
+                        <td><a th:href="@{/venda/removerProdutoCarrinho/{id}(id=${i.produto.id})}" class="btn btn-outline-danger">x</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total</th>
+                        <th th:text="${#numbers.formatCurrency(session.venda.valor)}"></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container p-2 gap-2" th:if="${session.venda.getItemVendas.size()!=0}">
+    <div class="row">
+        <!--<form class="col-3 d-flex" th:action="@{/venda/comprarProdutos}" method="get">
+            <select th:name="clienteId" class="form-select col-1" aria-label="Default select example">
+                <label th:each="c : ${clientes}">
+                    <option th:value="${c.id}" type="number" th:text="${c.nome}"></option>
+                </label>
+            </select>
+            <input class="btn btn-primary" type="submit" value="Finalizar Compra"/>
+        </form>-->
+        <form sec:authorize="isAuthenticated()" method="post" th:action="@{/venda/comprarProdutos}">
+            <button class="btn btn-primary" type="submit">Finalizar Compra</button>
+        </form>
+    </div>
+</div>
+
+<div th:insert="fragments/footer :: modelfooter"></div>

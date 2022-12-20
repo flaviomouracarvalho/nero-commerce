@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-dark" th:fragment="navbar" id="navbar">
+    <div class="container">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/produto/listProduto}">Inicio</a>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cadastrar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-center" th:href="@{/produto/formProduto}">Produtos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" th:href="@{/pessoapf/formPessoa}">Usuarios</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Listas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li sec:authorize="isAuthenticated()"><a class="dropdown-item text-center" th:href="@{/venda/comprasRealizadas}">Compras</a></li>
+                            <li sec:authorize="isAuthenticated()" ><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-center" th:href="@{/produto/listProduto}">Produtos</a></li>
+                            <li sec:authorize="hasRole('ADMIN')"><hr class="dropdown-divider"></li>
+                            <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item text-center" th:href="@{/pessoapf/listPessoas}">Usuarios</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-flex h-25">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/images/user.png" width="30px" height="30px" >
+                            <span class="badge text-light"sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <form sec:authorize="isAnonymous">
+                                <li><a class="dropdown-item text-center" th:href="@{/produto/formProduto}">Logar</a></li>
+                            </form>
+                            <li>
+                                <form sec:authorize="isAuthenticated()" method="post" th:action="@{/pessoapf/perfil}">
+                                   <button class="dropdown-item btn btn-primary text-center">Editar Perfil</button>
+                                </form>
+                            </li>
+                            <hr sec:authorize="isAuthenticated()" class="dropdown-divider">
+                            <li>
+                                <form sec:authorize="isAuthenticated()" method="post" th:action="@{/logout}">
+                                    <button class="dropdown-item btn btn-danger text-center"><img src="/images/door-open.svg"> Sair</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex position-relative" role="search">
+                    <a class="btn " th:href="@{/venda/carrinhoProdutos}">
+                        <img src="/images/cart.png" width="38px" height="38px" >
+                        <span th:text="${session.venda} != null ? ${session.venda.getItemVendas.size} : 0"
+                              class=" top-0 start-0 translate-middle badge rounded-pill bg-danger">
+                                </span>
+                        <span class="visually-hidden"></span>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

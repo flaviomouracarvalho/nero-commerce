@@ -1,0 +1,36 @@
+.profile-image-pic{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.cardbody-color{
+    background-color: #bbc2be;
+}
+#navbar{
+    background-color: #333333;
+}
+
+body {
+    font-family: 'Roboto', Arial;
+}
+
+.alert {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.alert.alert-danger {
+    background-color: rgba(248, 215, 218, 1);
+    border-color: rgba(220, 53, 69, 1);
+    color: rgba(114, 28, 36,1);
+}
+
+.alert.alert-success {
+    background-color: rgba(227, 253, 235, 1);
+}

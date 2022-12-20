@@ -1,0 +1,41 @@
+<div th:insert="fragments/header :: modelheader"></div>
+<div th:insert="fragments/navbar"></div>
+<div class="container">
+<div class="row">
+    <div class="col-12">
+        <h2>Detalhes da Compra</h2>
+    </div>
+</div>
+</div>
+<div class="container">
+    <div class="row gap-2">
+        <strong class="callout">Compras realizada</strong>
+        <div class="col-12 rounded d-grid gap-2" style="background-color: #F2EEF4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Valor Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${venda.id}" scope="row"></td>
+                        <td th:text="${venda.date}"></td>
+                        <td th:text="${#numbers.formatCurrency(venda.valor)}"></td>
+                    </tr>
+                     <th scope="row">Produtos</th>
+                    <tr th:each="i: ${venda.getItemVendas}">
+                        <td th:text="${i.produto.id}"></td>
+                        <td th:text="${i.produto.descricao}"></td>
+                        <td th:text="${#numbers.formatCurrency(i.produto.valor)}"></td>
+                        <td th:text="${i.qtd}"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:insert="fragments/footer :: modelfooter"></div>

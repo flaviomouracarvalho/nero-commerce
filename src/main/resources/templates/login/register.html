@@ -1,0 +1,25 @@
+<div th:insert="fragments/header :: modelheader" ></div>
+<div class="container">
+  <div class="row-">
+    <div class="col-md-6 offset-md-3">
+      <div class="card my-5 cardbody-color">
+        <form th:action="@{/registerUser}" th:object="${usuario}" method="post" class="card-body ">
+          <div class="text-center">
+            <img src="/images/nero.jpeg" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                 width="200px" alt="profile">
+          </div>
+          <div class="mb-3">
+            <label class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+            <input class="form-control" name="email" th:filed="*{email}" id="email" aria-describedby="emailHelp"
+                   placeholder="Email">
+          </div>
+          <div class="mb-3">
+            <label class="alert remove alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+            <input type="password" class="form-control" name="password" th:field="*{password}" id="password" placeholder="Senha">
+          </div>
+          <div class="text-center"><button type="submit" class="btn btn-primary px-5 mb-5 w-100">Registrar</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

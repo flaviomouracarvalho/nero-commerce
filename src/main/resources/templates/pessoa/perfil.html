@@ -1,0 +1,45 @@
+<div th:insert="fragments/header :: modelheader"></div>
+<div th:insert="fragments/navbar"></div>
+<div class="container">
+    <div class="card text-center row">
+        <div class="card-header col-12">
+            <div class="">
+                <h1>Perfil</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-footer col-2" style="width: 15rem; background-color: #333333">
+                <img src="/images/user.png" class="card-img-bottom" alt="...">
+            </div>
+            <div class="col-4">
+                <br>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Email:</strong>
+                        <p sec:authentication="name" ></p>
+                    </div>
+                    <div class="col-6">
+                        <strong>Nome:</strong>
+                        <p th:text="${pessoaPF.getNome()}" ></p>
+                    </div>
+                    <div class="col-6">
+                        <strong>CPF:</strong>
+                        <p th:text="${pessoaPF.getCpf()}" ></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="post" th:action="@{/pessoapf/editPerfil}">
+                <button class="btn btn-primary" type="submit">Alterar Dados</button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            <form th:action="@{/logout}" method="post">
+                <button class="btn btn-danger" type="submit">Sair</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:insert="fragments/footer :: modelfooter"></div>

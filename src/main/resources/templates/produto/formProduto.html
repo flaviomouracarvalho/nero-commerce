@@ -1,0 +1,37 @@
+<div th:insert="fragments/header :: modelheader"></div>
+<div th:insert="fragments/navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Cadastro de Produtos</h2>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div th:if="${!#strings.isEmpty(sucesso)}">
+        <div class="alert alert-success" role="alert">
+            <span th:text="${sucesso}"></span>
+        </div>
+    </div>
+    <div class="row gap-2">
+        <div class="col-12 rounded">
+            <form th:if="${produto.id == null}" th:action="@{/produto/saveProduto}" th:object="${produto}" method="post" class="row g-3">
+                <input type="hidden" th:field="*{id}">
+                <div class="col-md-6">
+                    <label class="alert alert-danger" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></label>
+                    <label class="form-label">Descrição</label>
+                    <input th:field="*{descricao}" type="text" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="alert alert-danger" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></label>
+                    <label class="form-label">Valor</label>
+                    <input th:field="*{valor}" type="text" class="form-control">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:insert="fragments/footer :: modelfooter"></div>

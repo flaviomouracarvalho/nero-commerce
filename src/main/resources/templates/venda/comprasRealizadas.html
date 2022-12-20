@@ -1,0 +1,53 @@
+<div th:insert="fragments/header :: modelheader"></div>
+<div th:insert="fragments/navbar"></div>
+<div th:if="${compras }">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>FINALIZADAS</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <form id="form" method="get" name="filtros" th:action="@{/venda/comprasRealizadas}">
+                    <label for="filtros_datas" class="col-sm-2 col-form-label">Data</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="filtros_datas" name="filtros_datas">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-success">Filtrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+<!--        th:href="@{/venda/detalhesCompra/{id}(id=${c.id})}"-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Data</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${compras}">
+                <a>
+                    <th scope="row"><a th:text="${c.id}" th:href="@{/venda/detalhesCompra/{id}(id=${c.id})}"></a></th>
+                    <td><a th:text="${c.getDate}" th:href="@{/venda/detalhesCompra/{id}(id=${c.id})}"></a></td>
+                    <td><a th:text="${c.getPessoaPF.nome}" th:href="@{/venda/detalhesCompra/{id}(id=${c.id})}"></a></td>
+                    <td><a th:text="${#numbers.formatCurrency(c.valor)}" th:href="@{/venda/detalhesCompra/{id}(id=${c.id})}"></a></td>
+                </a>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container" th:if="${compras.size() == 0}">
+    <br>
+    <div class="alert alert-info">Nenhuma compra realizada!</div>
+</div>
+<div th:insert="fragments/footer :: modelfooter"></div>
